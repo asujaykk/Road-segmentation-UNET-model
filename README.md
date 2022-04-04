@@ -1,4 +1,4 @@
-# Road-segmentation--UNET-model
+# Road-segmentation-UNET-model
 This project aims to locate and segment the road area from an image typically taken from the frontal camera of a vehicle
 Road segmentation is an crucial step in ADAS system of a vehicle for various tasks. 
 
