@@ -1,7 +1,4 @@
 
-"""
-## Prepare `Sequence` class to load & vectorize batches of data
-"""
 
 from tensorflow import keras
 from tensorflow.keras.preprocessing.image import load_img

@@ -11,14 +11,26 @@ from PIL import Image
 import os
 import cv2
 import time
+import argparse
 
 
-model_in_size = (None, 160, 160, 3)
+parser = argparse.ArgumentParser(description = 'Run inference model on mp4 videos')
+parser.add_argument('--src',metavar='string',type=str,required = True,help='Path to input mp4 video')
+parser.add_argument('--model',metavar='String',type=str,default='models/pretrained_models/road_segmentation_160_160.h5',help='The location of keras model to be used (.h5 file)')
+
+
+args = parser.parse_args()
+
+
+
 img_size=(160, 160)
 out_size=(600,400)
-model_path = "models/pretrained_models/road_segmentation_160_160.h5"
+model_path = args.model    # ex:"models/pretrained_models/road_segmentation_160_160.h5"
 
-
+path=args.src              # ex: "/media/akhil_kk/DATA_DRIVE/data_sets/VID_20220129_181919.mp4"
+cap=cv2.VideoCapture(path)
+count=0
+fskp=8
 
 
 model = keras.models.load_model(model_path)
@@ -26,7 +38,6 @@ model = keras.models.load_model(model_path)
 
 
 def get_mask(in_img,model_size,outsize):
-    """Quick utility to display a model's prediction."""
     img= cv2.resize(in_img, model_size)
     data=np.expand_dims(img, axis=0)
     #print(data.shape)
@@ -42,10 +53,7 @@ def get_mask(in_img,model_size,outsize):
     #display(img)
     return cv2.resize(in_img,outsize), cv2.resize(img,outsize)
 
-path="/media/akhil_kk/DATA_DRIVE/data_sets/VID_20220129_181919.mp4"
-cap=cv2.VideoCapture(path)
-count=0
-fskp=8
+
 
 while True:
     count=count+fskp
@@ -62,6 +70,6 @@ while True:
         #merged = cv2.merge([B, G, R])
         cv2.imshow('Input frame',img)
         cv2.imshow('predicted mask',mask)
-        cv2.imshow('Final output ',cv2.merge([B, G, np.bitwise_xor(R,mask.astype(np.uint8))]))
+        cv2.imshow('Final output ',cv2.merge([B, G, np.bitwise_or(R,mask.astype(np.uint8))]))
     cv2.waitKey(1)
-    
+   

@@ -39,7 +39,7 @@ class seg_dataset(keras.utils.Sequence):
         return x, y
 
 
-# 
+# prepare input image and target image path lists
 
 def get_img_path_list(input_img_dir,input_mask_dir):
         	
