@@ -1,0 +1,4 @@
+0 0 0 background
+52 209 183 lane mark
+51 221 255 main road
+204 153 51 mud road
