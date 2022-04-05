@@ -64,4 +64,4 @@ Road segmentation is an crucial step in ADAS system of a vehicle for various tas
  The generated onnx model provided better performance on low end machines 
  in my pC the onnx model inference took 75 to 90 ms to process one frame which was acceptable for a real world application. 
  
-https://user-images.githubusercontent.com/78997596/161819007-3dd98f76-defd-44d9-a4b1-9dac2274474f.mp4
+
