@@ -24,8 +24,15 @@ Road segmentation is an crucial step in ADAS system of a vehicle for various tas
   Here the segmentation mask need to be drawn on each frame.
   I used Intel's CVAT tool for annotating my data set for image segmentation
   The data annotation was performed for 600 images/frames (these frames are randomly taken from different videos) for 7 classes.
-  ![image](https://user-images.githubusercontent.com/78997596/161808366-48a3e413-073a-4784-90fd-b1de44b7456c.jpg | width=100px)
-![image](https://user-images.githubusercontent.com/78997596/161808448-0e722968-e25e-434b-84f3-630e16dbade5.png | width=100px)
+
+  The sample image looks like below                                
+  <img src="https://user-images.githubusercontent.com/78997596/161812129-56097ac0-7673-421d-9b49-64e5a692ea4e.jpg" width="300" height="200">
+
+  
+  The RGB road mask of the above image looks like below
+  
+  <img src="https://user-images.githubusercontent.com/78997596/161812224-33cb17a6-40f0-472b-8e37-1cf469f104e9.png" width="300" height="200">
+  
   ## Data set format
   The annotated data in CVAT tool can be downloaded in different format based on your need. In my case i choose 'Kitti' data set format since it will contain the direct mask image, which is needed for unet model trainig.
 
