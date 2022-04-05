@@ -14,10 +14,9 @@ Road segmentation is an crucial step in ADAS system of a vehicle for various tas
 # 1.Data preparation
 
 ## Data collection  
- The data needed for this task is a collection of images that are taken from the frontal camera of a car/vehicle.
- I used my mobile phone camera to capture continous vedio while im driving. The camera was mounted at the centre of front wind shield.
- I collected 28 hours of such video during my trips at different districts in kerala and karnataka. 
- The data include different types of road (highway, road with lane mark and without lane mark, mud road, oneway, multi lane road)
+ The data required for this task is a collection of images taken from the front camera of a car / vehicle. I used my mobile phone camera to capture continuous video while I was driving. The camera was mounted in the center of the front windshield.
+ I collected 28 hours of such videos during my travels in various districts of Kerala and Karnataka.
+ Data includes different types of roads (highway, lane road, lane mark road, mud road, one way, multi lane road)
  
  ## Data annotation
   The next difficult step was to annotate the frames from these videos for image segmentation model. 
