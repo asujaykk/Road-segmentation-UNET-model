@@ -3,14 +3,13 @@ This project aims to locate and segment the road area from an image typically ta
 Road segmentation is an crucial step in ADAS system of a vehicle for various tasks. 
 
 # Approach
-1. Data preperation
-2. Model/algorithm
-3. Framework to be used for model realization
-4. Train the model
-5. Evaluate the model
-6. Issues observed
-7. Performance improvement
-8. Next steps
+1. Data preperation.
+2. Model/algorithm.
+3. Framework to be used for model realization.
+4. Train the model.
+5. Inference the model.
+6. Performance improvement.
+7. Next steps.
 
 # 1.Data preparation
 
@@ -44,8 +43,17 @@ Road segmentation is an crucial step in ADAS system of a vehicle for various tas
    
    The same model was trained in my personal laptop (i3 processor with 4gb Ram) without GPU support and the training took almost 10 hours to complete for 4 batch size and 15 epochs.
    
+   # 5.Inference the model
+   The model can be used to predict the road area from new images/Videos, and we have an Inference pipeline created to predict the road area from an input mp4 Video/IP cam videos.
    
+   1. The inference pipeline support mp4 video as input and the input image will be resized to (600 x 400) and the predicted mask will be also at (600 x 400 ) size.
+   2. The infrenec model by default shows input image (color image), predicted road mask (binary image) , Final output (mask impossed on red layer of input image)
   
   
+ # 6. Performance improvement.
+ The model inference took 265 to 340 ms to process one input image, which is pretty slow for a real world application. 
+ So we decided to convert the kers model in to onnx model, for better performance and deployement.
  
+ The generated onnx model provided better performance on low end machines 
+ in my pC the onnx model inference took 75 to 90 ms to process one frame which was acceptable for a real world application. 
  
