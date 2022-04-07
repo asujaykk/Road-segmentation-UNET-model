@@ -47,7 +47,7 @@ If you want to generate and run onnx model then the following packages also requ
   <img src="https://user-images.githubusercontent.com/78997596/161812129-56097ac0-7673-421d-9b49-64e5a692ea4e.jpg" width="300" height="200">
 
   
-  The RGB road mask of the above image is as follows
+  The annotated RGB mask of the above image is as follows.
   
   <img src="https://user-images.githubusercontent.com/78997596/161812224-33cb17a6-40f0-472b-8e37-1cf469f104e9.png" width="300" height="200">
   
