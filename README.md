@@ -14,7 +14,7 @@ If you want to generate and run onnx model then the following packages also requ
 2. onnx    1.11.0
 3. tf2onnx  1.11.0
 
-# Approach
+# Steps involved
 1. Data preperation.
 2. Model/algorithm.
 3. Framework to be used for model realization.
