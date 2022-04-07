@@ -2,6 +2,18 @@
 This project aims to locate and segment the road area from an image typically taken from the frontal camera of a vehicle
 Road segmentation is an crucial step in ADAS system of a vehicle for various tasks. 
 
+# Prerequsite
+The following libraries need to be installed in your pc before starting the project.
+1. tensorflow   2.7.0
+2. opencv   4.5.4.60
+3. keras   2.7.0
+4. numpy 1.21.4
+
+If you want to generate and run onnx model then the following packages also required.
+1. onnxruntime  1.11.0
+2. onnx    1.11.0
+3. tf2onnx  1.11.0
+
 # Approach
 1. Data preperation.
 2. Model/algorithm.
