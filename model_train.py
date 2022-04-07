@@ -43,7 +43,7 @@ img_size = (160, 160)
 num_classes = label_count
 batch_size = args.batch
 epochs = args.epoch
-model_path =args.output+"/road_segmentation_160_160.h5"
+model_path =args.output+"/road_segmentation_160_160_test.h5"
 
 
 
