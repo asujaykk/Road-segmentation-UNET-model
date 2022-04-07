@@ -21,7 +21,8 @@ If you want to generate and run onnx model then the following packages also requ
 4. Train the model.
 5. Inference the model.
 6. Performance improvement.
-7. Next steps.
+7. Inference the onnx model.
+8. Next steps.
 
 # 1.Data preparation
 
