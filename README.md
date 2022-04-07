@@ -142,11 +142,11 @@ To inference the onnx model please use the below command
 python3 inference_onnx.py --src <path to mp4 video> --model <path to onnx model>
 ~~~
 
-The inference output is given below, in which the 
+The inference video output is given below. In which
 1. The left frame represet the input image
 2. Middle frame represet the mask predicted by the model (the white part is the road area)
-3. The right frame represent the final output, in which the mask is imposed in the red layer of the input image (as a result the road will be highlighted in red colour)
-4. 
+3. The right frame represent the final output, in which the mask is imposed in the RED layer of the input image (as a result the road will be highlighted in RED colour)
+
 ![Screencast 2022-1649225143098](https://user-images.githubusercontent.com/78997596/161906906-9ec9989e-9617-4500-adef-e1d40c03c75c.gif)
 
 
