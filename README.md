@@ -76,7 +76,7 @@ Note: The mask will not be modified in 1-4 operation, instead the original mask 
 ~~~
   Extarct the data set available in the data/data_set folder to data_set/data_temp_folder 
 ~~~
-  unzip data/data_set folder/road_seg_kitti.zip –d data_set/data_temp_folder
+  unzip data/data_set folder/road_seg_kitti.zip –d data_set/data_temp_folder/road_seg_kitti
 ~~~
   Expand the data set by executing the following data augmentation script
 ~~~ 
