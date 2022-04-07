@@ -138,8 +138,4 @@ The inference output is given below, in which the
 ![Screencast 2022-1649225143098](https://user-images.githubusercontent.com/78997596/161906906-9ec9989e-9617-4500-adef-e1d40c03c75c.gif)
 
 
-# References
-1.
-2.
-3.
-4.
+
