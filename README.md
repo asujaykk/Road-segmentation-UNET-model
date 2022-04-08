@@ -119,7 +119,7 @@ Note: The mask will not be modified in 1-4 operation, instead the original mask 
  The above script by default use 'models/pretrained_models/road_segmentation_160_160.h5' for inference.
  If you want to specify your custom model, then please execute the following command
   ~~~
- python3 inference.py --src <path to mp4 video> --model <path to model, .h5 file>
+ python3 inference.py --src <path to mp4 video> --model models/pretrained_models/road_segmentation_160_160.h5
  ~~~
  
  
@@ -140,7 +140,7 @@ Note: The mask will not be modified in 1-4 operation, instead the original mask 
 To inference the onnx model please use the below command 
 
 ~~~
-python3 inference_onnx.py --src <path to mp4 video> --model <path to onnx model>
+python3 inference_onnx.py --src <path to mp4 video> --model models/onnx_models/road_seg_160_160.onnx
 ~~~
 
 The inference video output is given below. In which
