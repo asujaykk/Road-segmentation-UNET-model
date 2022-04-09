@@ -9,6 +9,7 @@ You need to have the following libraries installed on your computer before start
 2. opencv   4.5.4.60
 3. keras   2.7.0
 4. numpy   1.21.4
+5. Python  3.6
 
 If you want to create and run the onnx model, you need the following packages as well.
 1. onnxruntime  1.11.0
