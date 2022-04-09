@@ -149,13 +149,13 @@ The command line parameters expected by 'DA_module.py' is explained below.
    2. The infrenec model by default shows input image (color image), predicted road mask (binary image) , Final output (mask impossed on red layer of input image) in seperate windows as shown below.
   ![Screenshot from 2022-04-09 12-55-31](https://user-images.githubusercontent.com/78997596/162561628-b3afaa92-3fd6-4700-95c9-8b6c12099b89.png) 
  
- We have a few pretrained models under 'models/pretrained_models' folder for testing. And they can be tested with the following inference script
+ We have a few pretrained models under 'models/pretrained_models' folder for testing. And they can be tested with the following inference script.
  ~~~
  python3 inference.py --src <path_to_mp4_video>  --model models/pretrained_models/road_segmentation_160_160.h5
  ~~~
  The command line parameters expected by 'inference.py' is explained below.
- 1. --src : Path to input video file (recommended mp4 format) 
- 2. --model : Path to keras model to be used for inferencing (default : 'models/pretrained_models/road_segmentation_160_160.h5')
+ 1. --src : Path to input video file (recommended mp4 format).
+ 2. --model : Path to keras model to be used for inferencing (default : 'models/pretrained_models/road_segmentation_160_160.h5').
  
  If you want to test the model that you created before, then please change the '--model' parameter to 'models/pretrained_models/road_segmentation_160_160_test.h5'. and run the 'inference.py'.
 
@@ -163,7 +163,7 @@ The command line parameters expected by 'DA_module.py' is explained below.
  # 6.Keras to ONNX conversion.
  The keras model inference took 265 to 340 ms to process one input image, which is pretty slow for real world application. 
  Thus for better performance and deployement we decided to convert the kers model in to onnx model(Open Neural Network Exchange).
- If you want to know why we are converting keras model to onnx, then please check this link :https://pythonsimplified.com/onnx-for-model-interoperability-faster-inference/
+ If you want to know why we are converting keras model to onnx, then please check this link :https://pythonsimplified.com/onnx-for-model-interoperability-faster-inference/.
  
  There is already a script available in this repo for converting keras model to onnx model.
  You can execute the below command to convert keras model to onnx model.
@@ -171,8 +171,8 @@ The command line parameters expected by 'DA_module.py' is explained below.
  python3 generate_onnx.py --input models/pretrained_models/road_segmentation_160_160.h5  --output models/onnx_models/road_seg_160_160.onnx --temp models/saved_model/road_seg
  ~~~
  The command line parameters expected by 'inference.py' is explained below.
- 1. --input : Path to input keras model (.h5 file) 
- 2. --output : Path to output onnx file to be created
+ 1. --input : Path to input keras model (.h5 file).
+ 2. --output : Path to output onnx file to be created.
  3. --temp  : A directory to save intermediate files created by the script.
 
 
@@ -181,7 +181,7 @@ If you want to convert the keras model that you created before to onnx model the
  python3 generate_onnx.py --input models/pretrained_models/road_segmentation_160_160_test.h5  --output models/onnx_models/road_seg_160_160_test.onnx --temp models/saved_model/road_seg_test
  ~~~
 
- The generated onnx model provided better performance on low end machines 
+ The generated onnx model provided better performance on low end machines. 
  The onnx model inference took 75 to 90 ms to process one frame on a low end machine , which is acceptable for real world application. 
  
  # 5.Inferencing onnx model.
@@ -191,16 +191,16 @@ To inference the onnx model please use the 'inference_onnx.py' like below.
 python3 inference_onnx.py --src <path_to_mp4 video> --model models/onnx_models/road_seg_160_160.onnx
 ~~~
 The command line parameters expected by 'inference_onnx.py' is explained below.
- 1. --src : Path to input video file (recommended mp4 format) 
- 2. --model : Path to onnx model to be used for inferencing (default : models/onnx_models/road_seg_160_160.onnx)
+ 1. --src : Path to input video file (recommended mp4 format). 
+ 2. --model : Path to onnx model to be used for inferencing (default : models/onnx_models/road_seg_160_160.onnx).
 
 
  If you want to test the model that you created before, then please change the '--model' parameter to 'models/onnx_models/road_seg_160_160_test.onnx' and run the 'inference_onnx.py'.
 
-The inference video output is given below. In which
-1. The left frame represent the input image
-2. Middle frame represent the mask predicted by the model (the white part is the road area)
-3. The right frame represent the final output, in which the mask is imposed in the RED layer of the input image (as a result the road will be highlighted in RED colour)
+The inference video output is given below. In which,
+1. The left frame represent the input image.
+2. Middle frame represent the mask predicted by the model (the white part is the road area).
+3. The right frame represent the final output, in which the mask is imposed in the RED layer of the input image (as a result the road will be highlighted in RED colour).
 
 ![Screencast 2022-1649225143098](https://user-images.githubusercontent.com/78997596/161906906-9ec9989e-9617-4500-adef-e1d40c03c75c.gif)
 
