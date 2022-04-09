@@ -123,8 +123,8 @@ The command line parameters expected by 'DA_module.py' is explained below.
   
   ## Training time on different Machines.
   1.  Google colab with GPU (NVIDIA tesla k80 24gb gpu) backend support : 20 minute  (32 batch size , 15 epoch)
-  2.  Personal PC, i3 processor with 4gb Ram without GPU support :  23 hours (8 batch size , 15 epoch)
-  3.  Personal PC, i7 processor with 16gb Ram with NVIDIA 6gb GPU support :  1.5 hours (32 batch size , 15 epoch)
+  2.  Personal Computer, i3 processor with 4gb Ram without GPU support :  23 hours (8 batch size , 15 epoch)
+  3.  Personal Computer, i7 processor with 16gb Ram with NVIDIA 6gb GPU support :  1.5 hours (32 batch size , 15 epoch)
   4.  Jetson nano developement board, ARM processor, 4gb Ram, GPU with 128 cuda cores :  15 hours (2 batch size , 15 epoch)
    
  You can use the script "model_train.py" for training the U-Net model over the data set that we created before.
