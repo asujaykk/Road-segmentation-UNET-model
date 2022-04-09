@@ -1,23 +1,22 @@
 # Road-segmentation-UNET-model
-This project aims to locate and segment the road area from an image typically taken from the frontal camera of a vehicle.
-Road segmentation is a crucial step in Advanced Driver Assistance Systems (ADAS) for various tasks like extracting drivable region, path planning,
+The project aims to locate and segment the road area from a picture normally taken from the front camera of a vehicle. Road segmentation is a critical step in Advanced Driver Assistance System (ADAS) for a variety of tasks, such as extracting the driveable area, path planning,
 lane change detection etc.
-In this section we only focusing to segment the main road area from an image.
+In this section we will focus only on separating the main road area from an image.
 
-# Prerequsite
-The following libraries need to be installed in your pc before starting the project.
+# Prerequisite
+You need to have the following libraries installed on your computer before starting the project.
 1. tensorflow   2.7.0
 2. opencv   4.5.4.60
 3. keras   2.7.0
-4. numpy 1.21.4
+4. numpy   1.21.4
 
-If you want to generate and run onnx model then the following packages also required.
+If you want to create and run the onnx model, you need the following packages as well.
 1. onnxruntime  1.11.0
 2. onnx    1.11.0
 3. tf2onnx  1.11.0
 
 # Steps involved
-1. Data preperation.
+1. Data preparation.
 2. Model/algorithm selection.
 3. Framework to be used for model realization.
 4. Train the model.
@@ -29,17 +28,16 @@ If you want to generate and run onnx model then the following packages also requ
 # 1.Data preparation
 
 ## Data collection  
- The data required for this task is a collection of images taken from the front camera of a car / vehicle. I used my mobile phone camera to capture continuous video while I was driving. The camera was mounted at the center of the front windshield.
+ The data required for this task is a collection of images taken from the front camera of a car / vehicle. I used my mobile phone camera to continuously record video while I was driving. The camera is mounted in the center of the front windshield.
  I collected 28 hours of such videos during my travels in various districts of Kerala and Karnataka.
- Data includes different types of roads (highway,road with lane marking, road without lane mark, mud road, one way, multi lane road) including junctions, turnings and elevations.
+ Those videos includes different types of roads (highway,road with lane marking, road without lane mark, mud road, one way, multi lane road), junctions, curves and elevations.
 
  ## Data annotation
   The next difficult step was to annotate the frames from these videos for image segmentation model. 
   As you know this is a bit time consuming task compared to bounding box drawing in case of object detection task.
-  Here the segmentation mask need to be drawn on each frame.
-  I used Intel's CVAT tool for annotating my data set for this task.
-  The data annotation was performed over 600 images/frames (these frames are randomly taken from different videos) for 7 classes. 
-  Subset of above big data set is used in this project, and this subset only include 100 annotated images with two class (road , non-road).
+ Here you need to draw a segmentation mask on each frame.
+  I used Intel's CVAT tool for this task.The data annotation was performed over 600 images/frames (these frames are randomly taken from different videos) for 7 classes. 
+  A Subset of above data set is used in this project, and this subset only include 100 annotated images with two class (road , non-road).
   
   The class label for each pixel will be as follows
      
@@ -55,18 +53,18 @@ If you want to generate and run onnx model then the following packages also requ
   <img src="https://user-images.githubusercontent.com/78997596/161812224-33cb17a6-40f0-472b-8e37-1cf469f104e9.png" width="300" height="200">
   
   ## Data set format
-  The annotated data in CVAT tool can be downloaded in different format based on your need. In my case i choose 'Kitti' format since it contains the direct mask image, which is needed for unet model trainig.
+  The interpreted data in the CVAT tool can be downloaded in different formats as per your requirement. In this project I chose the 'Kitti' format because it contains the direct mask image required for unet model training.
 
   ## Data augmentation
-  Data augmentation is a common practice in machine learning if the data set is very small or the variety of data is less in the data set. Basically data augmentation is nothing but introducing some changes in input data without loosing the major features of it. With this technique you can create a large set of data from the limited original input data. 
-  In this project we only have 100 raw images for training, and which is very less for a training task. 
-  So we are going to expand 100 image data set to 7000 image data set with data augmentation.
-  In this project the DA module use the following  operations,
+  Data augmentation is a common practice in machine learning if the data set is too small or the diversity of data in the data set is low. Basically data augmentation is nothing but introducing some changes in the input data without losing key features. With this technique you can create a large set of data from the limited original input data. 
+  In this project we only have 100 raw images, and which is very less for a training task. 
+  So we are going to expand 100 image to 7000 image with data augmentation.
+  In this project the DA(Data Augmentation.) module use the following  operations,
    
-   1. Random brightness : The brightness level of the input image will be changed randomly within limit.
-   2. Random saturation : The saturation level of the input image will be changed randomly within limit.
-   3. Random hue : The hue level of the input image will be changed randomly within limit.
-   4. Random contrast : The contrast level of the input image will be changed randomly within limit.
+   1. Random brightness : The brightness level of the input image will be changed randomly within a limit.
+   2. Random saturation : The saturation level of the input image will be changed randomly within a limit.
+   3. Random hue : The hue level of the input image will be changed randomly within a limit.
+   4. Random contrast : The contrast level of the input image will be changed randomly within a limit.
    5. Horizontal flip : The input image will be flipped along y axis.
     
 Note: The mask will not be modified in 1-4 operation, instead the original mask will be replicated. But in case of 5th operation both input image and mask need to be flipped to retain the strutural relationship between image and mask.
@@ -77,79 +75,105 @@ Note: The mask will not be modified in 1-4 operation, instead the original mask 
 ~~~
   git clone https://github.com/asujaykk/Road-segmentation-UNET-model.git
 ~~~
-  Extarct the data set 'road_seg_kitti.zip' available in the data/data_set folder to data_set/data_temp_folder with the following command.
+  Extarct the data set 'road_seg_kitti.zip' available in the 'data/data_set folder' to 'data_set/data_temp_folder' with the following command.
 ~~~
   unzip data/data_set folder/road_seg_kitti.zip –d data_set/data_temp_folder/road_seg_kitti
 ~~~
   The extracted folder contains the following files and folder structure.
   1. label_colors.txt: This file contain the class label information.                             
   2. default/image_2 : This directory contains all input images (x.jpg files).
-  3. default/instance: This directory contains target mask image of each input image. 
-  4. Default/semantic_rgb: This directory contains the mask image in RGB format. 
+  3. default/instance: This directory contains target mask image of each input image (x.png files). 
+  4. Default/semantic_rgb: This directory contains the mask image in RGB format (x.png files). 
   
-  Expand the data set by executing the following data augmentation script.
+  Expand the data set  70 times by executing the following data augmentation script.
 ~~~ 
- python3 DA_module.py --input data_set/data_temp_folder/road_seg_kitti
+ python3 DA_module.py --input data_set/data_temp_folder/road_seg_kitti --factor 70
 ~~~
-        
+The command line parameters expected by 'DA_module.py' is explained below.
+1. --input  : This parameter should be a path to data set directory, in this case it is 'data_set/data_temp_folder/road_seg_kitti'
+2. --factor : This parameter should be a number (default is 70), and the script will replicate the input image and mask by this factor.  
   
+  Note: Please do not run the 'DA_module.py' on the data set twice, because the script will take the current image count in 'default/image_2' and then replicate it 70 times. So if you run 'DA_module.py' twice then the image will be expanded to '70*70' times.
+   
   # 2. Model/algorithm selection.
-   Unet architecture is choosen for this task since the training cost for this model is less, and this model gave good benchmark over different data sets for different tasks.
-    
+   Unet architecture is chosen for this task since the training cost for this model is less, and this model gave good benchmark over different data sets for different tasks.  
 
    # 3. Framework to be used for model realization
-   Initially the plan was to use pytorch library to realize the model. But since i already used pytorch library for image classification and speech recognition task, this time i thought to use keras and tensorflow for this project so that i can explore these libraries in detail.
- 
+   Initially the plan was to use pytorch library to realize the model. But since i already used pytorch library for image classification and speech recognition task, this time i thought to use keras and tensorflow so that i can explore these libraries in detail.
+ The model realization is available in 'model.py' file.
  
    # 4.Train the model
-   I choose google colab to train the UNET model for (160 x 160) input size, and an augmented dataset of 7000 images. The training took around 20 minutes in colab with GPU (NVIDIA tesla k80 24gb gpu) backend support. We choose 32 batch size and 15 epochs for faster training. The trained model was saved in my google drive for inferenecing.
+   I chose google colab to train the UNET model for (160 x 160) input size, and an augmented dataset of 7000 images. The training took around 20 minutes in colab with GPU (NVIDIA tesla k80 24gb gpu) backend support. I chose 32 batch size and 15 epochs for faster training. The trained model was saved in my google drive for inferenecing.
    
    The same model was trained in my personal laptop (i3 processor with 4gb Ram) without GPU support and the training took almost 10 hours to complete for 4 batch size and 15 epochs.
    
- You can use the script "model_train.py" for training the unet model over the data set that we created above.
+ You can use the script "model_train.py" for training the unet model over the data set that we created before.
  ~~~
     python3 model_train.py --input data_set/data_temp_folder/road_seg_kitti --output models/pretrained_models --batch 4 --epoch 15
  ~~~
+  The command line parameters expected by 'model_train.py' is explained below.
+  1. --input  : Path to the root of dataset directory
+  2. --output : Path where the output model will be saved, the default name of this model will be "road_segmentation_160_160_test.h5"
+  3. --batch  : The batch size of data to be used for training and evaluation (default value is 4)
+  4. --epoch  : The epoch for training and evaluation (default value is 15)
   
-  You can increase the batch size upto 32 based on computer resources.
-  
+  While training if you are facing 'OOM'(out of memory) error from tensorflow, then please reduce the batch size to a small number. You can increase the batch size upto 32 based on available computer resources.
+ 
+ Once the training completed successfully,then you can find your trained model "road_segmentation_160_160_test.h5" under  "models/pretrained_models" directory ;)
   
    # 5.Inferencing keras model.
    The model can be used to predict the road area from new images/Videos, and we have an Inference pipeline created to predict the road area from an input mp4 Video/IP cam videos.
       
    1. The inference pipeline support mp4 video as input and the input image will be resized to (600 x 400) and the predicted mask will be also at (600 x 400 ) size.
-   2. The infrenec model by default shows input image (color image), predicted road mask (binary image) , Final output (mask impossed on red layer of input image)
+   2. The infrenec model by default shows input image (color image), predicted road mask (binary image) , Final output (mask impossed on red layer of input image) in seperate windows as given below.
+  ![Screenshot from 2022-04-09 12-55-31](https://user-images.githubusercontent.com/78997596/162561628-b3afaa92-3fd6-4700-95c9-8b6c12099b89.png) 
  
  We have a few pretrained models under 'models/pretrainwed_models' folder for testing. And they can be tested with the following inference script
  ~~~
- python3 inference.py --src <path to mp4 video>
+ python3 inference.py --src <path_to_mp4_video>  --model models/pretrained_models/road_segmentation_160_160.h5
  ~~~
- The above script by default use 'models/pretrained_models/road_segmentation_160_160.h5' for inference.
- If you want to specify your custom model, then please execute the following command
-  ~~~
- python3 inference.py --src <path to mp4 video> --model models/pretrained_models/road_segmentation_160_160.h5
- ~~~
+ The command line parameters expected by 'inference.py' is explained below.
+ 1. --src : Path to input video file (recommended mp4 format) 
+ 2. --model : Path to keras model to be used for inferencing (default : 'models/pretrained_models/road_segmentation_160_160.h5')
  
+ If you want to test the model that you created before, then please change the '--model' parameter to 'models/pretrained_models/road_segmentation_160_160_test.h5'. and run the 'inference.py'.
+
  
  # 6. Performance improvement.
- The model inference took 265 to 340 ms to process one input image, which is pretty slow for real world application. 
- So for better performance and deployement we decided to convert the kers model in to onnx model, .
+ The keras model inference took 265 to 340 ms to process one input image, which is pretty slow for real world application. 
+ Thus for better performance and deployement we decided to convert the kers model in to onnx model, .
  
- There is already a script available in this repo for converting the keras model to onnx model.
- You can execute the below command to convert a keras model to onnx model.
+ There is already a script available in this repo for converting keras model to onnx model.
+ You can execute the below command to convert keras model to onnx model.
  ~~~
- python3 generate_onnx.py --input models/pretrained_models/road_segmentation_160_160.h5  --output models/onnx_models/road_seg_160_160.onnx
+ python3 generate_onnx.py --input models/pretrained_models/road_segmentation_160_160.h5  --output models/onnx_models/road_seg_160_160.onnx --temp models/saved_model/road_seg
  ~~~
+ The command line parameters expected by 'inference.py' is explained below.
+ 1. --input : Path to input keras model (.h5 file) 
+ 2. --output : Path to output onnx file to be created
+ 3. --temp  : A directory to save intermediate files created by the script.
+
+
+If you want to convert the keras model that you created before to onnx model then please run below command.
+ ~~~
+ python3 generate_onnx.py --input models/pretrained_models/road_segmentation_160_160_test.h5  --output models/onnx_models/road_seg_160_160_test.onnx --temp models/saved_model/road_seg_test
+ ~~~
+
  The generated onnx model provided better performance on low end machines 
- in my pC the onnx model inference took 75 to 90 ms to process one frame which was acceptable for a real world application. 
- 
+ The onnx model inference took 75 to 90 ms to process one frame on a low end machine , which is acceptable for real world application. 
  
  # 5.Inferencing onnx model.
-To inference the onnx model please use the below command 
+To inference the onnx model please use the 'inference_onnx.py' like below.
 
 ~~~
 python3 inference_onnx.py --src <path to mp4 video> --model models/onnx_models/road_seg_160_160.onnx
 ~~~
+The command line parameters expected by 'inference_onnx.py' is explained below.
+ 1. --src : Path to input video file (recommended mp4 format) 
+ 2. --model : Path to onnx model to be used for inferencing (default : models/onnx_models/road_seg_160_160.onnx)
+
+
+ If you want to test the model that you created before, then please change the '--model' parameter to 'models/onnx_models/road_seg_160_160_test.onnx' and run the 'inference_onnx.py'.
 
 The inference video output is given below. In which
 1. The left frame represet the input image
