@@ -1,6 +1,8 @@
 # Road-segmentation-UNET-model
-This project aims to locate and segment the road area from an image typically taken from the frontal camera of a vehicle
-Road segmentation is an crucial step in ADAS system of a vehicle for various tasks. 
+This project aims to locate and segment the road area from an image typically taken from the frontal camera of a vehicle.
+Road segmentation is a crucial step in Advanced Driver Assistance Systems (ADAS) for various tasks like extracting drivable region, path planning,
+lane change detection etc.
+In this section we only focusing to segment the main road area from an image.
 
 # Prerequsite
 The following libraries need to be installed in your pc before starting the project.
@@ -16,12 +18,12 @@ If you want to generate and run onnx model then the following packages also requ
 
 # Steps involved
 1. Data preperation.
-2. Model/algorithm.
+2. Model/algorithm selection.
 3. Framework to be used for model realization.
 4. Train the model.
-5. Inference the model.
+5. Inferencing keras model.
 6. Performance improvement.
-7. Inference the onnx model.
+7. Inferencing the onnx model.
 8. Next steps.
 
 # 1.Data preparation
@@ -57,7 +59,7 @@ If you want to generate and run onnx model then the following packages also requ
 
   ## Data augmentation
   Data augmentation is a common practice in machine learning if the data set is very small or the variety of data is less in the data set. Basically data augmentation is nothing but introducing some changes in input data without loosing the major features of it. With this technique you can create a large set of data from the limited original input data. 
-  In this project we only have 100 raw images for training, and which is very small for a data hungry model like unet. 
+  In this project we only have 100 raw images for training, and which is very less for a training task. 
   So we are going to expand 100 image data set to 7000 image data set with data augmentation.
   In this project the DA module use the following  operations,
    
@@ -65,9 +67,9 @@ If you want to generate and run onnx model then the following packages also requ
    2. Random saturation : The saturation level of the input image will be changed randomly within limit.
    3. Random hue : The hue level of the input image will be changed randomly within limit.
    4. Random contrast : The contrast level of the input image will be changed randomly within limit.
-   5. Horizontal flip : The input image will be flipped along y axis, 
+   5. Horizontal flip : The input image will be flipped along y axis.
     
-Note: The mask will not be modified in 1-4 operation, instead the original mask will be replicated. But in case of 5th operation both input image and mask need to be flipped to retain the spatial information of image and mask.
+Note: The mask will not be modified in 1-4 operation, instead the original mask will be replicated. But in case of 5th operation both input image and mask need to be flipped to retain the strutural relationship between image and mask.
 
   ## Prepare the dataset
   Clone this repo to your working directory with the following git command.
@@ -75,19 +77,25 @@ Note: The mask will not be modified in 1-4 operation, instead the original mask 
 ~~~
   git clone https://github.com/asujaykk/Road-segmentation-UNET-model.git
 ~~~
-  Extarct the data set available in the data/data_set folder to data_set/data_temp_folder 
+  Extarct the data set 'road_seg_kitti.zip' available in the data/data_set folder to data_set/data_temp_folder with the following command.
 ~~~
   unzip data/data_set folder/road_seg_kitti.zip –d data_set/data_temp_folder/road_seg_kitti
 ~~~
-  Expand the data set by executing the following data augmentation script
+  The extracted folder contains the following files and folder structure.
+  1. label_colors.txt: This file contain the class label information.                             
+  2. default/image_2 : This directory contains all input images (x.jpg files).
+  3. default/instance: This directory contains target mask image of each input image. 
+  4. Default/semantic_rgb: This directory contains the mask image in RGB format. 
+  
+  Expand the data set by executing the following data augmentation script.
 ~~~ 
  python3 DA_module.py --input data_set/data_temp_folder/road_seg_kitti
 ~~~
         
   
-  # 2. Model/algorithm
-   Unet architecture is choosen for this task since the training cost for this model is less compared to FCNN.
-
+  # 2. Model/algorithm selection.
+   Unet architecture is choosen for this task since the training cost for this model is less, and this model gave good benchmark over different data sets for different tasks.
+    
 
    # 3. Framework to be used for model realization
    Initially the plan was to use pytorch library to realize the model. But since i already used pytorch library for image classification and speech recognition task, this time i thought to use keras and tensorflow for this project so that i can explore these libraries in detail.
@@ -106,7 +114,7 @@ Note: The mask will not be modified in 1-4 operation, instead the original mask 
   You can increase the batch size upto 32 based on computer resources.
   
   
-   # 5.Inference the keras model.
+   # 5.Inferencing keras model.
    The model can be used to predict the road area from new images/Videos, and we have an Inference pipeline created to predict the road area from an input mp4 Video/IP cam videos.
       
    1. The inference pipeline support mp4 video as input and the input image will be resized to (600 x 400) and the predicted mask will be also at (600 x 400 ) size.
@@ -136,7 +144,7 @@ Note: The mask will not be modified in 1-4 operation, instead the original mask 
  in my pC the onnx model inference took 75 to 90 ms to process one frame which was acceptable for a real world application. 
  
  
- # 5.Inference the onnx model.
+ # 5.Inferencing onnx model.
 To inference the onnx model please use the below command 
 
 ~~~
@@ -150,5 +158,6 @@ The inference video output is given below. In which
 
 ![Screencast 2022-1649225143098](https://user-images.githubusercontent.com/78997596/161906906-9ec9989e-9617-4500-adef-e1d40c03c75c.gif)
 
-
+# Next steps
+1. Will be updated soon :)
 
