@@ -129,7 +129,7 @@ The command line parameters expected by 'DA_module.py' is explained below.
    2. The infrenec model by default shows input image (color image), predicted road mask (binary image) , Final output (mask impossed on red layer of input image) in seperate windows as given below.
   ![Screenshot from 2022-04-09 12-55-31](https://user-images.githubusercontent.com/78997596/162561628-b3afaa92-3fd6-4700-95c9-8b6c12099b89.png) 
  
- We have a few pretrained models under 'models/pretrainwed_models' folder for testing. And they can be tested with the following inference script
+ We have a few pretrained models under 'models/pretrained_models' folder for testing. And they can be tested with the following inference script
  ~~~
  python3 inference.py --src <path_to_mp4_video>  --model models/pretrained_models/road_segmentation_160_160.h5
  ~~~
