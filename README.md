@@ -92,14 +92,14 @@ Note: The mask will not be modified in 1-4 operation, instead the original mask 
 ~~~
   git clone https://github.com/asujaykk/Road-segmentation-UNET-model.git
 ~~~
-  Extarct the data set 'road_seg_kitti.zip' available in the 'data/data_set folder' to 'data_set/data_temp_folder' with the following command.
+  Extarct the data set 'road_seg_kitti.zip' available in the 'data/data_set' folder to 'data_set/data_temp_folder' with the following command.
 ~~~
-  unzip data/data_set folder/road_seg_kitti.zip –d data_set/data_temp_folder/road_seg_kitti
+  unzip data/data_set/road_seg_kitti.zip –d data/data_set/data_temp_folder
 ~~~
 
   Expand the data set  70 times by executing the following data augmentation script (The script will take few minute to process).
 ~~~ 
- python3 DA_module.py --input data_set/data_temp_folder/road_seg_kitti --factor 70
+ python3 DA_module.py --input data/data_set/data_temp_folder/road_seg_kitti --factor 70
 ~~~
 The command line parameters expected by 'DA_module.py' is explained below.
 1. --input  : This parameter should be a path to data set directory, in this case it is 'data_set/data_temp_folder/road_seg_kitti'
@@ -129,10 +129,10 @@ The command line parameters expected by 'DA_module.py' is explained below.
    
  You can use the script "model_train.py" for training the U-Net model over the data set that we created before.
  ~~~
-    python3 model_train.py --input data_set/data_temp_folder/road_seg_kitti --output models/pretrained_models --batch 4 --epoch 15
+    python3 model_train.py --dataset data_set/data_temp_folder/road_seg_kitti --output models/pretrained_models --batch 4 --epoch 15
  ~~~
   The command line parameters expected by 'model_train.py' is explained below.
-  1. --input  : Path to the root of dataset directory
+  1. --dataset  : Path to the root of dataset directory
   2. --output : Path where the output model will be saved, the default name of this model will be "road_segmentation_160_160_test.h5"
   3. --batch  : The batch size of data to be used for training and evaluation (default value is 4)
   4. --epoch  : The epoch for training and evaluation (default value is 15)
